@@ -110,7 +110,7 @@ int main() {
 ```
  
 Output
-⁠![Output guided](https://github.com/chafdv/Modul-6/blob/main/Output/guided6.png)
+⁠![Output guided](https://github.com/chafdv/Modul-8/blob/main/output/guidedm8.png)
 
 Program ini menerapkan struktur data Queue (antrian) dengan array statis yang dapat menampung hingga lima elemen.  Ini memiliki kemampuan untuk membuat antrian kosong, mengecek apakah kondisinya kosong atau penuh, menampilkan isi antrian, menambah elemen ke antrian, dan menghapus elemen dari antrian.  Prinsip FIFO, atau First In First Out, mengatur bahwa item yang masuk pertama akan keluar terlebih dahulu.  Dengan menambah, menghapus, dan menampilkan isi antrian secara berurutan, program utama kemudian menunjukkan penggunaan semua fungsi tersebut.
 ---
