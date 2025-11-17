@@ -355,4 +355,4 @@ Kode tersebut berfungsi untuk mengelola data kendaraan menggunakan doubly linked
 
 ## Referensi
 
-1.⁠ ⁠([](https://www.dicoding.com/blog/struktur-data-queue-pengertian-fungsi-dan-jenisnya/)) [diakses 17-11-2025]
+1.⁠ ⁠[(https://www.dicoding.com/blog/struktur-data-queue-pengertian-fungsi-dan-jenisnya/)] [diakses 17-11-2025]
