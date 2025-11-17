@@ -119,7 +119,7 @@ Program ini menerapkan struktur data Queue (antrian) dengan array statis yang da
 
 ### Soal 1
 
-Buatlah implementasi ADT Doubly Linked list pada file “Doublylist.cpp” dan coba hasil implementasi ADT pada file “main.cpp”.
+Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 1 (head diam, tail bergerak).
 
 ```cpp
 #ifndef DOUBLYLIST_H
@@ -173,9 +173,9 @@ Kode tersebut adalah header file untuk program Doubly Linked List yang menyimpan
 
 ### Soal 2
 
-Carilah elemen dengan nomor polisi D001 dengan membuat fungsi baru.
+Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 2 (head bergerak, tail bergerak).
 
-⁠ cpp
+```cpp
 #include "doublylist.h"
 
 void CreateList(List &L) {
@@ -268,8 +268,7 @@ void deleteAfter(address Prec, address &P) {
         P->prev = NULL;
     }
 }
-
- ⁠
+```
 
 Output 
 	⁠![Output Soal 2](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp2.png)
@@ -280,15 +279,9 @@ Kode ini berisi fungsi untuk membuat, menambah, menampilkan, mencari, dan mengha
 
 ### Soal 3
 
-Hapus elemen dengan nomor polisi D003 dengan procedure delete.
-•⁠  ⁠procedure deleteFirst( input/output L : List,
- P : address )
-•⁠  ⁠procedure deleteLast( input/output L : List,
- P : address )
-•⁠  ⁠procedure deleteAfter( input Prec : address,
- input/output P : address )
+Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 3 (head dan tail berputar).
 
-⁠ cpp
+ ```cpp
 #include "DoublyList.h"
 
 int main() {
@@ -353,9 +346,8 @@ int main() {
 
     return 0;
 }
+```
 
- ⁠
- 
 Output 
 	⁠![Output Soal 3](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp3.png)
 
@@ -363,4 +355,4 @@ Kode tersebut berfungsi untuk mengelola data kendaraan menggunakan doubly linked
 
 ## Referensi
 
-1.⁠ ⁠[(https://www.dicoding.com/blog/struktur-data-queue-pengertian-fungsi-dan-jenisnya/)] [diakses 17-11-2025]
+1.⁠ ⁠([](https://www.dicoding.com/blog/struktur-data-queue-pengertian-fungsi-dan-jenisnya/)) [diakses 17-11-2025]
