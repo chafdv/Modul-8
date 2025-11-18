@@ -9,7 +9,7 @@ Queue atau dalam bahasa Indonesia yang berarti antrean adalah struktur data yang
 
 ### Soal 1
 
-```⁠ cpp
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -225,7 +225,7 @@ int main() {
 ```
 
 Output
-	⁠![Output Soal 1](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp1.png)
+	⁠![Output Soal 1]((https://github.com/chafdv/Modul-8/blob/main/output/soal1m8.png))
 
 Program ini membuat dan mengelola queue berbasis array dengan operasi dasar seperti membuat antrian, mengecek kosong/penuh, menambah elemen enqueue, menghapus elemen dequeue, dan menampilkan isi antrian. Di fungsi main, program hanya mendemonstrasikan perubahan isi queue setelah beberapa operasi enqueue dan dequeue dilakukan.
 
@@ -351,7 +351,7 @@ int main() {
 ```
 
 Output 
-	⁠![Output Soal 2](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp2.png)
+	⁠![Output Soal 2]((https://github.com/chafdv/Modul-8/blob/main/output/soal3m8.png))
 
 Program ini tersebut yaitu untuk membuat dan mengelola queue sederhana: bisa enqueue, dequeue, cek kosong/penuh, dan menampilkan isi antrian. Program juga otomatis menggeser data jika tail mentok supaya antrian tetap bisa dipakai.
 
@@ -469,7 +469,7 @@ int main() {
 ```
 
 Output 
-	⁠![Output Soal 3](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp3.png)
+	⁠![Output Soal 3]((https://github.com/chafdv/Modul-8/blob/main/output/soal3m8.png))
 
 Program di atas adalah implementasi queue circular menggunakan array berkapasitas 5. Program dapat melakukan operasi dasar seperti membuat queue, mengecek kosong/penuh, menambah data (enqueue), menghapus data (dequeue), dan menampilkan isi antrian. Mekanisme circular dilakukan dengan operasi modulo sehingga head dan tail bisa berputar tanpa menggeser data.
 
