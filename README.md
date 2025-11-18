@@ -348,13 +348,12 @@ int main() {
     dequeue(Q);     printInfo(Q); 
 
     return 0;
-}
 ```
 
 Output 
 	⁠![Output Soal 2](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp2.png)
 
-Kode ini berisi fungsi untuk membuat, menambah, menampilkan, mencari, dan menghapus data pada doubly linked list yang berisi informasi kendaraan. Setiap node terhubung dua arah sehingga data bisa diakses dan dihapus dari depan maupun belakang dengan mudah.
+Program ini tersebut yaitu untuk membuat dan mengelola queue sederhana: bisa enqueue, dequeue, cek kosong/penuh, dan menampilkan isi antrian. Program juga otomatis menggeser data jika tail mentok supaya antrian tetap bisa dipakai.
 
 ---
 
@@ -363,67 +362,107 @@ Kode ini berisi fungsi untuk membuat, menambah, menampilkan, mencari, dan mengha
 Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 3 (head dan tail berputar).
 
  ```cpp
-#include "DoublyList.h"
+#include <iostream>
+using namespace std;
+
+#define MAX 5
+
+typedef int infotype;
+
+struct Queue {
+    infotype info[MAX]; 
+    int head;
+    int tail;
+};
+
+void CreateQueue(Queue &Q) {
+    Q.head = -1;
+    Q.tail = -1;
+}
+
+bool isEmptyQueue(Queue Q) {
+    return (Q.head == -1 && Q.tail == -1);
+}
+
+bool isFullQueue(Queue Q) {
+    return ((Q.tail + 1) % MAX == Q.head);
+}
+
+void enqueue(Queue &Q, infotype x) {
+    if (isFullQueue(Q)) {
+       
+    } else {
+        if (isEmptyQueue(Q)) {
+            Q.head = 0;
+            Q.tail = 0;
+        } else {
+            Q.tail = (Q.tail + 1) % MAX; 
+        }
+        Q.info[Q.tail] = x;
+    }
+}
+
+infotype dequeue(Queue &Q) {
+    infotype x; 
+
+    if (isEmptyQueue(Q)) {
+        return -1; 
+    } else {
+        x = Q.info[Q.head];
+
+        if (Q.head == Q.tail) {
+            CreateQueue(Q); 
+        } else {
+            Q.head = (Q.head + 1) % MAX;
+        }
+        
+        return x;
+    }
+}
+ 
+void printInfo(Queue Q) {
+    cout << Q.head << " - " << Q.tail << "\t| ";
+    if (isEmptyQueue(Q)) { 
+        cout << "empty queue";
+    } else {
+        int i = Q.head;
+        while (true) {
+            cout << Q.info[i] << " ";
+            if (i == Q.tail) {
+                break; 
+            }
+            i = (i + 1) % MAX; 
+        }
+    }
+    cout << endl;
+} 
 
 int main() {
-    List L;
-    CreateList(L);
+    cout << "Hello world!" << endl; 
+    Queue Q;                         
+    CreateQueue(Q);                  
 
-    int n;
-    cout << "Masukkan jumlah kendaraan: ";
-    cin >> n;
-    cin.ignore();
+    cout << "-----------------------------------" << endl; 
+    
+    cout << " H - T \t| Queue Info" << endl;       
+    
+    cout << "-----------------------------------" << endl; 
 
-    for (int i = 0; i < n; i++) {
-        infotype x;
-        cout << "Masukkan nomor polisi: ";
-        getline(cin, x.nopol);
-        cout << "Masukkan warna kendaraan: ";
-        getline(cin, x.warna);
-        cout << "Masukkan tahun kendaraan: ";
-        cin >> x.thnBuat;
-        cin.ignore();
-        insertLast(L, alokasi(x));
-        cout << endl;
-    }
+    printInfo(Q); 
+    
+    enqueue(Q, 5);  printInfo(Q); 
+    enqueue(Q, 2);  printInfo(Q); 
+    enqueue(Q, 7);  printInfo(Q); 
 
-    cout << "\nDATA LIST 1\n";
-    printInfo(L);
+    dequeue(Q);     printInfo(Q); 
 
-    string cari;
-    cout << "Masukkan Nomor Polisi yang dicari: ";
-    getline(cin, cari);
-    address found = findElm(L, cari);
-    if (found != nullptr) {
-        cout << "\nNomor Polisi : " << found->info.nopol << endl;
-        cout << "Warna        : " << found->info.warna << endl;
-        cout << "Tahun        : " << found->info.thnBuat << endl;
-    } else {
-        cout << "\nData tidak ditemukan.\n";
-    }
+    enqueue(Q, 4);  printInfo(Q); 
 
-    cout << "\nMasukkan Nomor Polisi yang akan dihapus: ";
-    string hapus;
-    getline(cin, hapus);
-
-    address del = findElm(L, hapus);
-    if (del != nullptr) {
-        address P;
-        if (del == L.First) {
-            deleteFirst(L, P);
-        } else if (del == L.Last) {
-            deleteLast(L, P);
-        } else {
-            deleteAfter(del->prev, P);
-        }
-        cout << "Data dengan nomor polisi " << hapus << " berhasil dihapus.\n";
-        dealokasi(P);
-    } else {
-        cout << "Data tidak ditemukan.\n";
-    }
-
-    cout << "\nDATA LIST 1 SETELAH HAPUS:\n";
-    printInfo(L);
+    dequeue(Q);     printInfo(Q); 
+    
+    dequeue(Q);     printInfo(Q);
+    
+    dequeue(Q);     printInfo(Q); 
 
     return 0;
 }
@@ -432,7 +471,9 @@ int main() {
 Output 
 	⁠![Output Soal 3](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp3.png)
 
-Kode tersebut berfungsi untuk mengelola data kendaraan menggunakan doubly linked list. Program meminta pengguna memasukkan beberapa data kendaraan, lalu menampilkannya. Setelah itu, pengguna dapat mencari data berdasarkan nomor polisi dan menghapus data tersebut baik di awal, tengah, maupun akhir list.
+Program di atas adalah implementasi queue circular menggunakan array berkapasitas 5. Program dapat melakukan operasi dasar seperti membuat queue, mengecek kosong/penuh, menambah data (enqueue), menghapus data (dequeue), dan menampilkan isi antrian. Mekanisme circular dilakukan dengan operasi modulo sehingga head dan tail bisa berputar tanpa menggeser data.
+
+---
 
 ## Referensi
 
