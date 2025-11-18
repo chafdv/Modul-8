@@ -122,52 +122,112 @@ Program ini menerapkan struktur data Queue (antrian) dengan array statis yang da
 Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 1 (head diam, tail bergerak).
 
 ```cpp
-#ifndef DOUBLYLIST_H
-#define DOUBLYLIST_H
-
 #include <iostream>
-#include <string>
 using namespace std;
 
-struct Kendaraan {
-    string nopol;
-    string warna;
-    int thnBuat;
+#define MAX 5
+
+typedef int infotype;
+
+struct Queue {
+    infotype info[MAX]; 
+    int head;
+    int tail;
 };
 
-typedef Kendaraan infotype;
+void CreateQueue(Queue &Q) {
+    Q.head = -1;
+    Q.tail = -1;
+}
 
-struct ElmList {
-    infotype info;
-    ElmList* next;
-    ElmList* prev;
-};
+bool isEmptyQueue(Queue Q) {
+    return (Q.head == -1 && Q.tail == -1);
+}
 
-typedef ElmList* address;
+bool isFullQueue(Queue Q) {
+    return (Q.tail == MAX - 1);
+}
 
-struct List {
-    address First;
-    address Last;
-};
+void enqueue(Queue &Q, infotype x) {
+    if (isFullQueue(Q)) {
+    } else {
+        if (isEmptyQueue(Q)) {
+            Q.head = 0;
+            Q.tail = 0;
+        } else {
+            Q.tail++;
+        }
+        Q.info[Q.tail] = x;
+    }
+}
 
-void CreateList(List &L);
-address alokasi(infotype x);
-void dealokasi(address &P);
-void printInfo(List L);
-void insertLast(List &L, address P);
-address findElm(List L, string nopol);
-void deleteFirst(List &L, address &P);
-void deleteLast(List &L, address &P);
-void deleteAfter(address Prec, address &P);
+infotype dequeue(Queue &Q) {
+    infotype x; 
 
-#endif
+    if (isEmptyQueue(Q)) {
+        return -1; 
+    } else {
+        x = Q.info[Q.head];
+
+        if (Q.head == Q.tail) {
+            CreateQueue(Q); 
+        } else {
+            for (int i = Q.head; i < Q.tail; i++) {
+                Q.info[i] = Q.info[i + 1];
+            }
+            Q.tail--; 
+        }
+        return x;
+    }
+}
+
+void printInfo(Queue Q) {
+    cout << Q.head << " - " << Q.tail << "\t| ";
+    if (isEmptyQueue(Q)) { 
+        cout << "empty queue";
+    } else {
+        for (int i = Q.head; i <= Q.tail; i++) {
+            cout << Q.info[i] << " ";
+        }
+    }
+    cout << endl;
+} 
+
+int main() {
+    cout << "Hello world!" << endl; 
+    Queue Q;                       
+    CreateQueue(Q);               
+
+    cout << "-----------------------------------" << endl; 
+    
+    cout << " H - T \t| Queue Info" << endl;             
+    
+    cout << "-----------------------------------" << endl; 
+
+    printInfo(Q); 
+    
+    enqueue(Q, 5);  printInfo(Q); 
+    enqueue(Q, 2);  printInfo(Q); 
+    enqueue(Q, 7);  printInfo(Q); 
+
+    dequeue(Q);     printInfo(Q); 
+
+    enqueue(Q, 4);  printInfo(Q); 
+
+    dequeue(Q);     printInfo(Q); 
+    
+    dequeue(Q);     printInfo(Q);
+    
+    dequeue(Q);     printInfo(Q); 
+
+    return 0;
+}
 ```
- ⁠
- ⁠
+
 Output
 	⁠![Output Soal 1](https://github.com/chafdv/Modul-6/blob/main/Output/maincpp1.png)
 
-Kode tersebut adalah header file untuk program Doubly Linked List yang menyimpan data kendaraan. Di dalamnya terdapat struktur node dengan pointer ke elemen sebelum dan sesudahnya, serta deklarasi fungsi untuk membuat, menambah, mencari, menampilkan, dan menghapus data pada list.
+Program ini membuat dan mengelola queue berbasis array dengan operasi dasar seperti membuat antrian, mengecek kosong/penuh, menambah elemen enqueue, menghapus elemen dequeue, dan menampilkan isi antrian. Di fungsi main, program hanya mendemonstrasikan perubahan isi queue setelah beberapa operasi enqueue dan dequeue dilakukan.
 
 ---
 
@@ -176,97 +236,118 @@ Kode tersebut adalah header file untuk program Doubly Linked List yang menyimpan
 Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue Alternatif 2 (head bergerak, tail bergerak).
 
 ```cpp
-#include "doublylist.h"
+#include <iostream>
+using namespace std;
 
-void CreateList(List &L) {
-    L.First = NULL;
-    L.Last = NULL;
+#define MAX 5
+
+typedef int infotype;
+
+struct Queue {
+    infotype info[MAX]; 
+    int head;
+    int tail;
+};
+
+void CreateQueue(Queue &Q) {
+    Q.head = -1;
+    Q.tail = -1;
 }
 
-address alokasi(infotype x) {
-    address P = new ElmList;
-    P->info = x;
-    P->next = NULL;
-    P->prev = NULL;
-    return P;
+bool isEmptyQueue(Queue Q) {
+    return (Q.head == -1 && Q.tail == -1);
 }
 
-void dealokasi(address &P) {
-    delete P;
-    P = NULL;
+bool isFullQueue(Queue Q) {
+    return (Q.head == 0 && Q.tail == MAX - 1);
 }
 
-void printInfo(List L) {
-    address P = L.First;
-    while (P != NULL) {
-        cout << "Nomor Polisi : " << P->info.nopol << endl;
-        cout << "Warna        : " << P->info.warna << endl;
-        cout << "Tahun        : " << P->info.thnBuat << endl;
-        cout << "------------------------------" << endl;
-        P = P->next;
-    }
-}
-
-void insertLast(List &L, address P) {
-    if (L.First == NULL) {
-        L.First = P;
-        L.Last = P;
+void enqueue(Queue &Q, infotype x) {
+    if (isFullQueue(Q)) {
     } else {
-        L.Last->next = P;
-        P->prev = L.Last;
-        L.Last = P;
-    }
-}
-
-address findElm(List L, string nopol) {
-    address P = L.First;
-    while (P != NULL) {
-        if (P->info.nopol == nopol) {
-            return P;
-        }
-        P = P->next;
-    }
-    return NULL;
-}
-
-void deleteFirst(List &L, address &P) {
-    if (L.First != NULL) {
-        P = L.First;
-        if (L.First == L.Last) {
-            L.First = NULL;
-            L.Last = NULL;
+        if (isEmptyQueue(Q)) {
+            Q.head = 0;
+            Q.tail = 0;
+            Q.info[Q.tail] = x;
         } else {
-            L.First = L.First->next;
-            L.First->prev = NULL;
+            if (Q.tail == MAX - 1) {
+                int n = 0; 
+                for (int i = Q.head; i <= Q.tail; i++) {
+                    Q.info[n] = Q.info[i];
+                    n++;
+                }
+                
+                Q.head = 0;
+                Q.tail = n - 1; 
+
+                Q.tail++;
+                Q.info[Q.tail] = x;
+
+            } else {
+                Q.tail++;
+                Q.info[Q.tail] = x;
+            }
         }
-        P->next = NULL;
     }
 }
 
-void deleteLast(List &L, address &P) {
-    if (L.First != NULL) {
-        P = L.Last;
-        if (L.First == L.Last) {
-            L.First = NULL;
-            L.Last = NULL;
+infotype dequeue(Queue &Q) {
+    infotype x; 
+
+    if (isEmptyQueue(Q)) {
+        return -1; 
+    } else {
+        x = Q.info[Q.head];
+        if (Q.head == Q.tail) {
+            CreateQueue(Q); 
         } else {
-            L.Last = L.Last->prev;
-            L.Last->next = NULL;
+            Q.head++;
         }
-        P->prev = NULL;
+        
+        return x;
     }
 }
 
-void deleteAfter(address Prec, address &P) {
-    if (Prec != NULL && Prec->next != NULL) {
-        P = Prec->next;
-        Prec->next = P->next;
-        if (P->next != NULL) {
-            P->next->prev = Prec;
+void printInfo(Queue Q) {
+    cout << Q.head << " - " << Q.tail << "\t| ";
+    if (isEmptyQueue(Q)) { 
+        cout << "empty queue";
+    } else {
+        for (int i = Q.head; i <= Q.tail; i++) {
+            cout << Q.info[i] << " ";
         }
-        P->next = NULL;
-        P->prev = NULL;
     }
+    cout << endl;
+} 
+
+int main() {
+    cout << "Hello world!" << endl; 
+    Queue Q;                         
+    CreateQueue(Q);                  
+
+    cout << "-----------------------------------" << endl; 
+    
+    cout << " H - T \t| Queue Info" << endl;       
+    
+    cout << "-----------------------------------" << endl; 
+
+    printInfo(Q); 
+    
+    enqueue(Q, 5);  printInfo(Q); 
+    enqueue(Q, 2);  printInfo(Q); 
+    enqueue(Q, 7);  printInfo(Q); 
+
+    dequeue(Q);     printInfo(Q); 
+
+    enqueue(Q, 4);  printInfo(Q); 
+
+    dequeue(Q);     printInfo(Q); 
+    
+    dequeue(Q);     printInfo(Q);
+    
+    dequeue(Q);     printInfo(Q); 
+
+    return 0;
 }
 ```
 
